@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pardeep | Android Developer Portfolio</title>
+    <style>
+        /* Premium Deep Dark Developer Palette */
+        :root {
+            --bg-main: #0f172a;        /* Deep slate dark background */
+            --card-bg: #1e293b;        /* Darker blue-gray for cards */
+            --text-dark: #f8fafc;      /* Bright off-white text for readability */
+            --text-muted: #94a3b8;     /* Muted gray-blue text for secondary info */
+            --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            --accent-blue: #3b82f6;     /* Vibrant neon blue accent */
+            --border-color: #334155;    /* Dark border outline */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Hero / Header Section */
+        header {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            padding: 90px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 1.35rem;
+            color: #3b82f6;
+            margin: 10px 0 30px 0;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .contact-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-links a:hover {
+            background: var(--accent-blue);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Container */
+        .container {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 0 25px;
+        }
+
+        /* Sections */
+        section {
+            background: var(--card-bg);
+            padding: 40px;
+            margin-bottom: 35px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #3b82f6;
+            display: inline-block;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 5px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* --- SLIDER SYSTEM --- */
+        .slider-container {
+            position: relative;
+            max-width: 100%;
+            margin: 20px auto 20px auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            border: 1px solid var(--border-color);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Project Slides Style */
+        .project-slide {
+            background-color: #1e293b;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .project-slide img {
+            max-width: 100%;
+            max-height: 330px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Conceptual Background Images Styling */
+        .skill-slide-content {
+            padding: 60px 40px;
+            text-align: center;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Dark tint overlay for superior text contrast */
+        .skill-slide-content::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.85); 
+            z-index: -1;
+        }
+
+        .skill-slide-content h3 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(15, 23, 42, 0.9);
+            color: #f8fafc;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Slider Left/Right Arrows */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 14px;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 50%;
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            transition: 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin: 0 10px;
+            z-index: 10;
+        }
+
+        .next { right: 0; }
+        .prev:hover, .next:hover {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border-color: #3b82f6;
+        }
+
+        /* Item Cards */
+        .item-card {
+            background: #0f172a;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3b82f6;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .item-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .item-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .badge-progress {
+            font-size: 0.75rem;
+            background: #78350f;
+            color: #fbbf24;
+            padding: 4px 10px;
+            border-radius: 30px;
+            margin-left: 8px;
+            font-weight: 700;
+            border: 1px solid #d97706;
+            text-transform: uppercase;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        li {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            background: #0f172a;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PARDEEP</h1>
+        <p>Android Developer</p>
+        <div class="contact-links">
+            <a href="mailto:pardeepkumar88229@gmail.com">Email</a>
+            <a href="tel:7404853397">Connect</a>
+            <a href="https://linkedin.com/in/pardeep-kasotiya-9b70b3333" target="_blank">LinkedIn</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section id="summary">
+            <h2>About Me</h2>
+            <p>Motivated Android Developer with hands-on experience in building mobile applications using Kotlin and Firebase. Currently developing real-world applications with a focus on user-friendly design and efficient functionality. Eager to contribute technical skills and grow in a professional development environment.</p>
+        </section>
+
+        <section id="screenshots">
+            <h2>Project Showcase</h2>
+            <div class="slider-container">
+                <div class="slides" id="projectTrack">
+                    <div class="slide project-slide">
+                        <img src="employee_logo.jpg" alt="Employee Management System Logo">
+                        <div class="slide-caption">Employee Management System - Core Application Brand</div>
+                    </div>
+                    <div class="slide project-slide">
+                        <img src="https://picsum.photos/id/9/800/400" alt="Music Player Interface" style="width: 100%; height: 100%; object-fit: contain;">
+                        <div class="slide-caption">Music Player App - Media Playback Controls</div>
+                    </div>
+                    <div class="slide project-slide">
+                        <img src="https://picsum.photos/id/0/800/400" alt="Database Sync" style="width: 100%; height: 100%; object-fit: contain;">
+                        <div class="slide-caption">Firebase Realtime Data Integration Screen</div>
+                    </div>
+                </div>
+                <button class="prev" onclick="moveProjectSlide(-1)">&#10094;</button>
+                <button class="next" onclick="moveProjectSlide(1)">&#10095;</button>
+            </div>
+        </section>
+
+        <section id="tech-skills-section">
+            <h2>Technical Core Skills</h2>
+            <div class="slider-container">
+                <div class="slides" id="techTrack">
+                    
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #4ac627;">Kotlin</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #ec4899;">XML Layouts</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #a7f3d0;">Android SDK</h3>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #818cf8;">MVVM Architecture</h3>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #fbbf24;">Firebase DB</h3>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #3b82f6;">Microsoft Azure</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="prev" onclick="moveTechSlide(-1)">&#10094;</button>
+                <button class="next" onclick="moveTechSlide(1)">&#10095;</button>
+            </div>
+        </section>
+
+        <section id="soft-skills-section">
+            <h2>Soft Skills & Attributes</h2>
+            <div class="slider-container">
+                <div class="slides" id="softTrack">
+                    
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #10b981;">Positive Attitude</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #3b82f6;">Quick Learner</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="slide">
+                        <div class="slide animate__animated animate__fadeIn">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #10b981;">Teamwork</h3>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #cbd5e1;">Time Management</h3>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #3b82f6;">Good Communication</h3>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1518600506278-4e8ef466b810?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #fbbf24;">Hardwork</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="prev" onclick="moveSoftSlide(-1)">&#10094;</button>
+                <button class="next" onclick="moveSoftSlide(1)">&#10095;</button>
+            </div>
+        </section>
+
+        <section id="hobbies-section">
+            <h2>Interests & Hobbies</h2>
+            <div class="slider-container">
+                <div class="slides" id="hobbyTrack">
+                    
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #fbbf24;">Travelling</h3>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1556910602-3884ee92e3ec?w=800&auto=format&fit=crop&q=60');">
+                            <h3 style="color: #fbbf24;">Cooking</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="prev" onclick="moveHobbySlide(-1)">&#10094;</button>
+                <button class="next" onclick="moveHobbySlide(1)">&#10095;</button>
+            </div>
+        </section>
+
+        <section id="projects-details">
+            <h2>Project Details</h2>
+            <div class="item-card">
+                <div class="item-title">Employee Management System</div>
+                <div class="item-subtitle">Native Android Application</div>
+                <ul>
+                    <li>Built an Employee Management Android application using Kotlin and Firebase.</li>
+                    <li>Implemented employee record add, update, delete, and search functionality.</li>
+                    <li>Integrated Firebase Realtime Database for live data synchronization.</li>
+                </ul>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">Music Player <span class="badge-progress">In Progress</span></div>
+                <div class="item-subtitle">Media & Audio Architecture</div>
+                <ul>
+                    <li>Developed a Music Player Android application using Kotlin and Android Studio.</li>
+                    <li>Implemented music play, pause, next, previous, and seek functionalities using MediaPlayer API.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Training & Experience</h2>
+            
+            <div class="item-card">
+                <div class="item-title">Azure AI & Machine Learning Training</div>
+                <div class="item-subtitle">ICT Academy | Nov 2025 - Dec 2025</div>
+                <ul>
+                    <li>Completed training in Microsoft Azure AI and Machine Learning technologies.</li>
+                    <li>Learned Azure Machine Learning services including model training, deployment, and endpoint creation.</li>
+                </ul>
+            </div>
+
+            <div class="item-card">
+                <div class="item-title">Android with Kotlin Training</div>
+                <div class="item-subtitle">CETPA | June 2024 - August 2024</div>
+                <ul>
+                    <li>Learned Android app development using Android Studio and Kotlin.</li>
+                    <li>Created mobile app user interfaces using XML layouts.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="item-title">Bachelor's Degree</div>
+            <div class="item-subtitle" style="margin-bottom: 0;">Om Sterling Global University, Hisar, Haryana (2022 - 2026)</div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Pardeep. Clean & Premium Dark Developer Layout.</p>
+    </footer>
+
+    <script>
+        let projectIndex = 0;
+        let techIndex = 0;
+        let softIndex = 0;
+        let hobbyIndex = 0;
+
+        function updateSlider(trackId, index) {
+            const track = document.getElementById(trackId);
+            if(track) {
+                track.style.transform = `translateX(-${index * 100}%)`;
+            }
+        }
+
+        function moveProjectSlide(dir) {
+            const total = document.querySelectorAll('#projectTrack .slide').length;
+            projectIndex = (projectIndex + dir + total) % total;
+            updateSlider('projectTrack', projectIndex);
+        }
+
+        function moveTechSlide(dir) {
+            const total = document.querySelectorAll('#techTrack .slide').length;
+            techIndex = (techIndex + dir + total) % total;
+            updateSlider('techTrack', techIndex);
+        }
+
+        function moveSoftSlide(dir) {
+            const total = document.querySelectorAll('#softTrack .slide').length;
+            softIndex = (softIndex + dir + total) % total;
+            updateSlider('softTrack', softIndex);
+        }
+
+        function moveHobbySlide(dir) {
+            const total = document.querySelectorAll('#hobbyTrack .slide').length;
+            hobbyIndex = (hobbyIndex + dir + total) % total;
+            updateSlider('hobbyTrack', hobbyIndex);
+        }
+
+        // Auto Slider Loop (4.5 Seconds)
+        setInterval(() => {
+            moveProjectSlide(1);
+            moveTechSlide(1);
+            moveSoftSlide(1);
+            moveHobbySlide(1);
+        }, 4500);
+    </script>
+
+</body>
+</html>

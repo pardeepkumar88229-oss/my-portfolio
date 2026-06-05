@@ -249,6 +249,30 @@
             font-weight: 500;
         }
 
+        /* Certificate View Buttons styling */
+        .btn-certificate {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-certificate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+
         .badge-progress {
             font-size: 0.75rem;
             background: #78350f;
@@ -270,6 +294,50 @@
             color: var(--text-muted);
             margin-bottom: 10px;
             font-size: 1rem;
+        }
+
+        /* --- PREMIUM MODAL / POPUP SYSTEM --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            padding-top: 60px; 
+            left: 0; top: 0;
+            width: 100%; height: 100%; 
+            overflow: auto; 
+            background-color: rgba(15, 23, 42, 0.9); 
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 750px;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.9); opacity: 0;} 
+            to {transform: scale(1); opacity: 1;}
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f8fafc;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #ef4444;
         }
 
         footer {
@@ -388,11 +456,9 @@
                     </div>
                     
                     <div class="slide">
-                        <div class="slide animate__animated animate__fadeIn">
                         <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=60');">
                             <h3 style="color: #10b981;">Teamwork</h3>
                         </div>
-                    </div>
                     </div>
 
                     <div class="slide">
@@ -431,7 +497,7 @@
                     </div>
 
                     <div class="slide">
-                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1556910602-3884ee92e3ec?w=800&auto=format&fit=crop&q=60');">
+                        <div class="skill-slide-content" style="background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&auto=format&fit=crop&q=60');">
                             <h3 style="color: #fbbf24;">Cooking</h3>
                         </div>
                     </div>
@@ -451,6 +517,8 @@
                     <li>Built an Employee Management Android application using Kotlin and Firebase.</li>
                     <li>Implemented employee record add, update, delete, and search functionality.</li>
                     <li>Integrated Firebase Realtime Database for live data synchronization.</li>
+                    <li>Added user authentication and form validations.</li>
+                    <li>Designed clean and user-friendly XML layouts.</li>
                 </ul>
             </div>
 
@@ -460,6 +528,9 @@
                 <ul>
                     <li>Developed a Music Player Android application using Kotlin and Android Studio.</li>
                     <li>Implemented music play, pause, next, previous, and seek functionalities using MediaPlayer API.</li>
+                    <li>Designed responsive and user-friendly UI using XML layouts and RecyclerView.</li>
+                    <li>Added playlist and song browsing features for better user experience.</li>
+                    <li>Managed audio playback lifecycle and background music handling efficiently.</li>
                 </ul>
             </div>
         </section>
@@ -473,16 +544,29 @@
                 <ul>
                     <li>Completed training in Microsoft Azure AI and Machine Learning technologies.</li>
                     <li>Learned Azure Machine Learning services including model training, deployment, and endpoint creation.</li>
+                    <li>Worked with Azure Cognitive Services such as Vision, NLP, and Speech services.</li>
+                    <li>Gained knowledge of MLOps concepts including pipelines, model registry, and model monitoring.</li>
+                    <li>Learned real-time and batch inference deployment techniques.</li>
+                    <li>Implemented Azure Functions and API integration for AI applications.</li>
                 </ul>
+                <button class="btn-certificate" onclick="openCertificate('ict.jpeg')">
+                    📄 View Azure Certificate
+                </button>
             </div>
 
             <div class="item-card">
                 <div class="item-title">Android with Kotlin Training</div>
                 <div class="item-subtitle">CETPA | June 2024 - August 2024</div>
                 <ul>
-                    <li>Learned Android app development using Android Studio and Kotlin.</li>
+                   <li>Learned Android app development using Android Studio.</li>
                     <li>Created mobile app user interfaces using XML layouts.</li>
+                    <li>Implemented app functionality using Kotlin programming language.</li>
+                    <li>Worked on Activities, Intents, Buttons, RecyclerView, and Navigation.</li>
+                    <li>Performed debugging and testing of Android applications.</li>
                 </ul>
+                <button class="btn-certificate" onclick="openCertificate('cetpa.jpeg')">
+                    📄 View CETPA Certificate
+                </button>
             </div>
         </section>
 
@@ -492,6 +576,11 @@
             <div class="item-subtitle" style="margin-bottom: 0;">Om Sterling Global University, Hisar, Haryana (2022 - 2026)</div>
         </section>
 
+    </div>
+
+    <div id="certModal" class="modal">
+        <span class="close-modal" onclick="closeCertificate()">&times;</span>
+        <img class="modal-content" id="certImage" alt="Training Certificate Showcase">
     </div>
 
     <footer>
@@ -533,6 +622,26 @@
             const total = document.querySelectorAll('#hobbyTrack .slide').length;
             hobbyIndex = (hobbyIndex + dir + total) % total;
             updateSlider('hobbyTrack', hobbyIndex);
+        }
+
+        // --- MODAL FUNCTIONS FOR CERTIFICATES ---
+        function openCertificate(imgUrl) {
+            const modal = document.getElementById("certModal");
+            const modalImg = document.getElementById("certImage");
+            modal.style.display = "block";
+            modalImg.src = imgUrl;
+        }
+
+        function closeCertificate() {
+            document.getElementById("certModal").style.display = "none";
+        }
+
+        // Close modal if clicked outside the image
+        window.onclick = function(event) {
+            const modal = document.getElementById("certModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
 
         // Auto Slider Loop (4.5 Seconds)
